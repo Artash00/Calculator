@@ -21,9 +21,14 @@ namespace Calculator
             return result;
         }
 
-        public void Partition(string exp)
+        private void Partition(string exp)
         {
-            int operatorIndex = FindOperatorIndex(exp);
+            int operatorIndex;
+            operatorIndex = FindSumSubIndex(exp);
+
+            if(operatorIndex == -1)
+                operatorIndex = FindMulDivIndex(exp);
+
             if (operatorIndex != -1)
             {
                 Operator = exp[operatorIndex];
@@ -41,13 +46,28 @@ namespace Calculator
             }
         }
 
-        private int FindOperatorIndex(string equation)
+        private int FindSumSubIndex(string equation)
         {
             for (int i = equation.Length - 1; i >= 0; i--)
             {
                 char currentChar = equation[i];
 
-                if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/')
+                if (currentChar == '+' || currentChar == '-')
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        private int FindMulDivIndex(string equation)
+        {
+            for (int i = equation.Length - 1; i >= 0; i--)
+            {
+                char currentChar = equation[i];
+
+                if (currentChar == '*' || currentChar == '/')
                 {
                     return i;
                 }
