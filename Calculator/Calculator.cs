@@ -76,7 +76,7 @@ namespace Calculator
             return -1;
         }
 
-        public int Calculating()
+        private int Calculating()
         {
             switch (Operator)
             {
